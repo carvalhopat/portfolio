@@ -1,0 +1,127 @@
+@import url("https://fonts.googleapis.com/css?family=Fjalla+One&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Source+Serif+Pro:ital,wght@0,200;1,200;1,700&&display=swap");
+
+@mixin base-circle {
+  border-radius: 50%;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: .3s;
+}
+
+@mixin circle-hover {
+  background-color: rgba(255, 255, 255, 0.068);
+  border: 1px solid transparent;
+}
+
+body{
+  background-color: #000000;
+  margin: 0;
+  font-family: 'Fjalla One', sans-serif;
+  font-size: 16px;
+}
+
+#wrapper{
+  position: absolute;
+  top: 85%;
+  left: 3%;
+}
+
+.circle{
+  @include base-circle;
+  width: 600px;
+  height: 600px;
+}
+
+.programming-circle{
+  top: -50px;
+  left: -20px;
+  animation: float 6s infinite alternate;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+
+  &:hover{
+    @include circle-hover;
+  }
+}
+
+.design-circle{
+  top: 10px;
+  left: 530px;
+  animation: float 3s infinite alternate;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+
+  &:hover{
+    @include circle-hover;
+  }
+}
+
+.outer-circle{
+  @include base-circle;
+  width: 400px;
+  height: 400px;
+  border: 1px solid rgba(255, 255, 255, 0.322);
+
+  &:hover{
+    @include circle-hover;
+  }
+}
+
+.inner-circle{
+  @include base-circle;
+  width: 200px;
+  height: 200px;
+  font-size: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.459);
+  color: rgba(255, 255, 255, 0.199);
+  letter-spacing: 2px;
+  font-family: 'Source Serif Pro', serif;
+  font-size: 1.5rem;
+  font-weight: 200;
+  font-style: italic;
+  text-decoration: none;
+
+  &:hover{
+    background-color: rgb(252, 224, 66);
+    border: 1px solid transparent;
+    color: black;
+    cursor: pointer;
+    transition: .6s;
+    animation: glow 1s infinite alternate;
+  }
+}
+
+.outter-prog-animation{
+  animation: float 6s infinite alternate, glow 3s infinite alternate;
+}
+
+.outter-design-animation{
+  animation: float 3s infinite alternate, glow 3s infinite alternate;
+}
+
+.inner-glow{
+  animation: glow 2s infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    box-shadow: 0 0 1px -1px rgba(255, 255, 255, 0.39);
+  }
+  to {
+    box-shadow: 0 0 10px 1px rgba(255, 255, 255, 0.226);
+  }
+}
+
+@keyframes float {
+	0% { transform: translatey(0px);}
+	50% { transform: translatey(-10px); }
+	100% { transform: translatey(0px);}
+}
+
+.author{
+  position: absolute;
+  text-transform: uppercase;
+  font-size: 1.3rem;
+  color: #fff;
+  opacity: .6;
+}

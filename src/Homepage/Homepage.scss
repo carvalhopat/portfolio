@@ -3,7 +3,6 @@
 
 @mixin base-circle {
   border-radius: 50%;
-  position: fixed;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -20,25 +19,42 @@ body{
   margin: 0;
   font-family: 'Fjalla One', sans-serif;
   font-size: 16px;
+  width: 100vw;
 }
 
-#wrapper{
+#author-wrapper{
   position: absolute;
   top: 85%;
   left: 3%;
 }
 
+.wrapper{
+  position: absolute;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+}
+
 .circle{
   @include base-circle;
-  width: 600px;
-  height: 600px;
+  width: 100vh;
+  height: 100vh;
 }
 
 .programming-circle{
-  top: -50px;
-  left: -20px;
   animation: float 6s infinite alternate;
-  border: 1px solid rgba(255, 255, 255, 0.24);
+  justify-self: end;
+  margin-left: 30px;
+}
+
+.second-programming-circle{
+  position: absolute;
+    top: 0;
+    margin-left: 0;
+    border: 1px solid rgba(255, 255, 255, 0.24);
 
   &:hover{
     @include circle-hover;
@@ -46,20 +62,17 @@ body{
 }
 
 .design-circle{
-  top: 10px;
-  left: 530px;
+  top: 5%;
+  left: 90%;
   animation: float 3s infinite alternate;
   border: 1px solid rgba(255, 255, 255, 0.24);
-
-  &:hover{
-    @include circle-hover;
-  }
+  position: absolute;
 }
 
 .outer-circle{
   @include base-circle;
-  width: 400px;
-  height: 400px;
+  width: 65vh;
+  height: 65vh;
   border: 1px solid rgba(255, 255, 255, 0.322);
 
   &:hover{
@@ -67,10 +80,18 @@ body{
   }
 }
 
+.back-circle{
+  margin-bottom: 20px;
+  margin-left: 0;
+  border: 1px solid rgba(255, 255, 255, 0.151);
+  animation: float-back 10s infinite alternate;
+  z-index: -2;
+}
+
 .inner-circle{
   @include base-circle;
-  width: 200px;
-  height: 200px;
+  width: 35vh;
+  height: 35vh;
   font-size: 20px;
   border: 1px solid rgba(255, 255, 255, 0.459);
   color: rgba(255, 255, 255, 0.199);
@@ -82,7 +103,7 @@ body{
   text-decoration: none;
 
   &:hover{
-    background-color: rgb(252, 224, 66);
+    background-color: rgb(16, 214, 198);
     border: 1px solid transparent;
     color: black;
     cursor: pointer;
@@ -103,6 +124,12 @@ body{
   animation: glow 2s infinite alternate;
 }
 
+.hoverEffect{
+  &:hover{
+    @include circle-hover;
+  }
+}
+
 @keyframes glow {
   from {
     box-shadow: 0 0 1px -1px rgba(255, 255, 255, 0.39);
@@ -118,10 +145,100 @@ body{
 	100% { transform: translatey(0px);}
 }
 
+@keyframes float-back {
+	0% { transform: translatey(0px) translatex(0px);}
+	50% { transform: translatey(-10px) translatex(-10px); }
+	100% { transform: translatey(0px) translatex(0px);}
+}
+
 .author{
   position: absolute;
   text-transform: uppercase;
   font-size: 1.3rem;
   color: #fff;
   opacity: .6;
+}
+
+@media only screen and (max-width: 1000px) {
+  .circle {
+    width: 70vh;
+    height: 70vh;
+  }
+
+  .outer-circle {
+    width: 45vh;
+    height: 45vh;
+  }
+
+  .inner-circle {
+    width: 20vh;
+    height: 20vh;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .circle {
+    width: 60vh;
+    height: 60vh;
+  }
+
+  .outer-circle {
+    width: 35vh;
+    height: 35vh;
+  }
+
+  .inner-circle {
+    width: 15vh;
+    height: 15vh;
+  }
+
+  .inner-circle{
+    font-size: 1.3rem;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  #author-wrapper {
+    top: 3%;
+    left: 7%;
+  }
+
+  .author {
+    font-size: 1.8rem;
+  }
+
+  .wrapper{
+    grid-template-columns: 100%;
+    height: 70vh;
+  }
+
+  .design-circle {
+    top: 90%;
+    left: 0;
+  }
+
+  .circle {
+    width: 40vh;
+    height: 40vh;
+  }
+
+  .outer-circle {
+    width: 25vh;
+    height: 25vh;
+  }
+
+  .inner-circle {
+    width: 10vh;
+    height: 10vh;
+  }
+
+  .programming-circle {
+    margin-left: 0;
+    justify-self: center;
+  }
+
+  .inner-circle{
+    font-size: 1rem;
+    color: #fff;
+  }
 }

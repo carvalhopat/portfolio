@@ -1,20 +1,20 @@
 import * as THREE from 'three';
 import {useState} from 'react'
-import Stats from 'three/examples/jsm/libs/stats.module.js';
 
 function useHomepage(){
-    const [glowProgramming, setGlowProgramming] = useState(false)
-    const [glowDesign, setGlowDesign] = useState(false)
+    const [glowProgramming, setGlowProgramming] = useState(false);
+    const [glowDesign, setGlowDesign] = useState(false);
+
+    const [hoverEffectDesign, setHoverEffectDesign] = useState(false);
   
     const eventProps = area => { return {onMouseOver: () => {area(true)}, onMouseOut: () => area(false)}}
 
     const universeParticles = () => {
         var scene, camera, renderer;
-    
-        // I guess we need this stuff too
+
         var container, HEIGHT,
             WIDTH, fieldOfView, aspectRatio,
-            nearPlane, farPlane, stats,
+            nearPlane, farPlane,
             geometry, particleCount,
             i, size,
             materials = [],
@@ -39,20 +39,9 @@ function useHomepage(){
             nearPlane = 1;
             farPlane = 3000;
     
-            /* 	fieldOfView — Camera frustum vertical field of view.
-        aspectRatio — Camera frustum aspect ratio.
-        nearPlane — Camera frustum near plane.
-        farPlane — Camera frustum far plane.
-    
-        - https://threejs.org/docs/#Reference/Cameras/PerspectiveCamera
-    
-        In geometry, a frustum (plural: frusta or frustums)
-        is the portion of a solid (normally a cone or pyramid)
-        that lies between two parallel planes cutting it. - wikipedia.		*/
-    
-            cameraZ = farPlane / 3; /*	So, 1000? Yes! move on!	*/
-            fogHex = 0x000000; /* As black as your heart.	*/
-            fogDensity = 0.0007; /* So not terribly dense?	*/
+            cameraZ = farPlane / 3;
+            fogHex = 0x000000;
+            fogDensity = 0.0007;
     
             camera = new THREE.PerspectiveCamera(fieldOfView, aspectRatio, nearPlane, farPlane);
             camera.position.z = cameraZ;
@@ -65,12 +54,9 @@ function useHomepage(){
             document.body.style.margin = 0;
             document.body.style.overflow = 'hidden';
     
-            geometry = new THREE.Geometry(); /*	NO ONE SAID ANYTHING ABOUT MATH! UGH!	*/
+            geometry = new THREE.Geometry();
     
-            particleCount = 200; /* Leagues under the sea */
-    
-            /*	Hope you took your motion sickness pills;
-        We're about to get loopy.	*/
+            particleCount = 200;
     
             for (i = 0; i < particleCount; i++) {
     
@@ -102,19 +88,16 @@ function useHomepage(){
                 ]
             ];
             parameterCount = parameters.length;
-    
-            /*	I told you to take those motion sickness pills.
-        Clean that vommit up, we're going again!	*/
-    
+
             for (i = 0; i < parameterCount; i++) {
     
                 size = parameters[i][1];
     
-                materials[i] = new THREE.PointCloudMaterial({
+                materials[i] = new THREE.PointsMaterial({
                     size: size
                 });
     
-                particles = new THREE.PointCloud(geometry, materials[i]);
+                particles = new THREE.Points(geometry, materials[i]);
     
                 particles.rotation.x = Math.random() * 6;
                 particles.rotation.y = Math.random() * 6;
@@ -123,26 +106,11 @@ function useHomepage(){
                 scene.add(particles);
             }
     
-            /*	If my calculations are correct, when this baby hits 88 miles per hour...
-        you're gonna see some serious shit.	*/
+            renderer = new THREE.WebGLRenderer();
+            renderer.setPixelRatio(window.devicePixelRatio);
+            renderer.setSize(WIDTH, HEIGHT);
     
-            renderer = new THREE.WebGLRenderer(); /*	Rendererererers particles.	*/
-            renderer.setPixelRatio(window.devicePixelRatio); /*	Probably 1; unless you're fancy.	*/
-            renderer.setSize(WIDTH, HEIGHT); /*	Full screen baby Wooooo!	*/
-    
-            container.appendChild(renderer.domElement); /* Let's add all this crazy junk to the page.	*/
-    
-            /*	I don't know about you, but I like to know how bad my
-            code is wrecking the performance of a user's machine.
-            Let's see some damn stats!	*/
-    
-            stats = new Stats();
-            stats.domElement.style.position = 'absolute';
-            stats.domElement.style.top = '0px';
-            stats.domElement.style.right = '0px';
-            container.appendChild(stats.domElement);
-    
-            /* Event Listeners */
+            container.appendChild(renderer.domElement);
     
             window.addEventListener('resize', onWindowResize, false);
             document.addEventListener('mousemove', onDocumentMouseMove, false);
@@ -154,7 +122,7 @@ function useHomepage(){
         function animate() {
             requestAnimationFrame(animate);
             render();
-            stats.update();
+            // stats.update();
         }
     
         function render() {
@@ -169,7 +137,7 @@ function useHomepage(){
     
                 var object = scene.children[i];
     
-                if (object instanceof THREE.PointCloud) {
+                if (object instanceof THREE.Points) {
     
                     object.rotation.y = time * (i < 4 ? i + 1 : -(i + 1));
                 }
@@ -214,6 +182,11 @@ function useHomepage(){
             camera.updateProjectionMatrix();
             renderer.setSize(window.innerWidth, window.innerHeight);
         }
+
+        var canvas = document.getElementById("root");
+        canvas.addEventListener("webglcontextlost", function(event) {
+            event.preventDefault();
+        }, false);
       }
 
     return {
@@ -221,6 +194,8 @@ function useHomepage(){
         setGlowProgramming,
         glowDesign,
         setGlowDesign,
+        hoverEffectDesign,
+        setHoverEffectDesign,
         eventProps,
         universeParticles
     }

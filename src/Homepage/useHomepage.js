@@ -68,8 +68,6 @@ function useHomepage(){
                 geometry.vertices.push(vertex);
             }
     
-            /*	We can't stop here, this is bat country!	*/
-    
             parameters = [
                 [
                     [1, 1, 0.5], 5
@@ -122,7 +120,6 @@ function useHomepage(){
         function animate() {
             requestAnimationFrame(animate);
             render();
-            // stats.update();
         }
     
         function render() {

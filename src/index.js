@@ -6,9 +6,3 @@ ReactDOM.render(
     <Homepage />,
   document.getElementById('root')
 );
-
-// function index(){
-//   return <App />
-// }
-
-// export default index
